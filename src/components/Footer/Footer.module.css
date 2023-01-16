@@ -1,0 +1,14 @@
+.wrapper {
+  height: auto;
+  background: orange;
+}
+
+.container {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+.logo {
+  width: 100px;
+  height: 100px;
+}

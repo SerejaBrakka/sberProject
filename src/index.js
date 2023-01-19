@@ -1,15 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import Auth from "./components/Auth/Auth";
-import "./index.css";
-import Main from "./components/Main/Main";
-import Login from "./components/Login/Login";
-import Products from "./components/Products/Products";
 import Basket from "./components/Basket/Basket";
+import Login from "./components/Registry/Registry";
+import Main from "./components/Main/Main";
+import Products from "./components/Products/Products";
 import Select from "./components/Select/Select";
-
+import "./index.css";
+const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
     path: "/",
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
 ]);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  <QueryClientProvider client={queryClient}>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </QueryClientProvider>
 );

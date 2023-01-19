@@ -1,10 +1,30 @@
 import { Formik } from "formik";
 import React from "react";
+import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
 import { loginValidator } from "../../validation";
-import classes from "./Login.module.css";
-
 const Login = () => {
-  const submitHandler = (values) => console.log(values);
+  const navigate = useNavigate();
+
+  const { mutateAsync, isLoading } = useMutation({
+    mutationFn: (data) => {
+      fetch("https://api.react-learning.ru/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then((resp) => console.log(resp));
+    },
+  });
+  const submitHandler = async (values) => {
+    const response = await mutateAsync(values);
+    console.log(response);
+    navigate("/signin");
+  };
+
   return (
     <>
       <h1>Регистрация</h1>
@@ -14,7 +34,7 @@ const Login = () => {
         onSubmit={submitHandler}
       >
         {(formik) => (
-          <form onSubmit={formik.handleSubmit} className={classes.form}>
+          <form onSubmit={formik.handleSubmit} className="wrapper">
             <label htmlFor="group">Group</label>
             <input
               id="group"
@@ -42,7 +62,9 @@ const Login = () => {
               <div>{formik.errors.email}</div>
             ) : null}
 
-            <button type="submit">Submit</button>
+            <button disabled={isLoading} type="submit">
+              Submit
+            </button>
           </form>
         )}
       </Formik>

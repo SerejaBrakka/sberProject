@@ -10,7 +10,7 @@ const Header = () => {
         <Link to="/">
           <img src={logo} alt="logo" className={classes.logo} />
         </Link>
-        <Link to="/products">Продукты</Link>
+        <Link to="products">Продукты</Link>
         <Link to="signup">Регистрация</Link>
         <Link to="signin">Авторизация</Link>
         <Link to="select">Избраное</Link>
